@@ -63,7 +63,7 @@ export const Weather = () => {
                     <div className="weather-information">
                         <h4>{data.weather[0].main}</h4>
                         <div className="icon">
-                          <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}></img>
+                          <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}  alt="imagen"></img>
                           <h4>Wind speed: {data.wind.speed}</h4>
                         </div>
                         <h4>Cloud: {data.clouds.all} %</h4>
