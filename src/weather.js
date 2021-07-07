@@ -9,6 +9,7 @@ export const Weather = () => {
     const [data, setData] = useState({});
     const [lat, setLat] =  useState('');
     const [lon, setLon] = useState('');
+    const [fahrenheit, setFahrenheit] = useState('');
     
     useEffect(() => {
         var options = {
@@ -33,7 +34,7 @@ export const Weather = () => {
   
     useEffect(() => {
       const geoposition = async () => {
-        let url = `${api.base}weather?lat=${lat}&lon=${lon}&appid=${api.key}`;
+        let url = `${api.base}weather?lat=${lat}&lon=${lon}&units=metric&appid=${api.key}`;
         const response = await fetch(url).then(res => res.json())            
         setData(response)
       }
@@ -49,19 +50,42 @@ export const Weather = () => {
       }
     }, [data])
 
+    const convertFahrenheit = () => {
+      let celsiusElement = document.getElementById("celsius");
+      let fahrenheitElement = document.getElementById("fahrenheit");
+
+      celsiusElement.style.display = "none";
+      fahrenheitElement.style.display = "flex"
+
+      let celsius = data.main.temp;
+      let fahrenheitValue = Math.floor((celsius * 1.8) + 32);
+      return setFahrenheit(fahrenheitValue)
+    }
+
+    const convertCelsius = () => {
+      let celsiusElement = document.getElementById("celsius");
+      let fahrenheitElement = document.getElementById("fahrenheit");
+      celsiusElement.style.display = "flex";
+      fahrenheitElement.style.display = "none";
+    }
+
     return (
       
         <div className="weather-container">
             {(typeof data.main != 'undefined') ? (
               <div>
-                <h3>{data.name}</h3>
-                <h3>{data.sys.country}</h3>
+                <h3>{data.name}, {data.sys.country}</h3>
                 <div className="weather-content">
                     <div className="weather-icon">
 
                     </div>
                     <div className="weather-information">
                         <h4>{data.weather[0].main}</h4>
+                        <h4>{data.weather[0].description}</h4>
+                        <div>
+                          <h4 className="fahrenheit" id="fahrenheit">{fahrenheit} F°</h4>
+                          <h4 className="celsius" id="celsius">{data.main.temp} C°</h4>
+                        </div>
                         <div className="icon">
                           <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}  alt="imagen"></img>
                           <h4>Wind speed: {data.wind.speed}</h4>
@@ -69,7 +93,13 @@ export const Weather = () => {
                         <h4>Cloud: {data.clouds.all} %</h4>
                         <h4>Pressure: {data.main.pressure} mb</h4>
                     </div>
+                    <div>
+                      <button onClick={() => convertFahrenheit()}>Covertir F°</button>
+                      <button onClick={() => convertCelsius()}>Covertir C°</button>
+                    </div>
+                    
                 </div>
+                
               </div>  
       ) : ('')}
         </div>

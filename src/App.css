@@ -13,3 +13,11 @@
   height: 60%;
   width: 40%;
 }
+
+.celsius {
+  display: flex;
+}
+
+.fahrenheit {
+  display: none;
+}
