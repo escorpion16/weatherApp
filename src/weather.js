@@ -73,33 +73,31 @@ export const Weather = () => {
       
         <div className="weather-container">
             {(typeof data.main != 'undefined') ? (
-              <div>
+              <div className="container-app">
                 <h3>{data.name}, {data.sys.country}</h3>
                 <div className="weather-content">
-                    <div className="weather-icon">
-
-                    </div>
-                    <div className="weather-information">
-                        <h4>{data.weather[0].main}</h4>
-                        <h4>{data.weather[0].description}</h4>
-                        <div>
-                          <h4 className="fahrenheit" id="fahrenheit">{fahrenheit} F°</h4>
-                          <h4 className="celsius" id="celsius">{data.main.temp} C°</h4>
-                        </div>
-                        <div className="icon">
-                          <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}  alt="imagen"></img>
-                          <h4>Wind speed: {data.wind.speed}</h4>
-                        </div>
-                        <h4>Cloud: {data.clouds.all} %</h4>
-                        <h4>Pressure: {data.main.pressure} mb</h4>
-                    </div>
-                    <div>
-                      <button onClick={() => convertFahrenheit()}>Covertir F°</button>
-                      <button onClick={() => convertCelsius()}>Covertir C°</button>
+                  <div className="icon">
+                    <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}  alt="imagen"></img>
+                    <h4>Wind speed: {data.wind.speed}</h4>
+                  </div>
+                  <div className="weather-information">
+                    <h4>{data.weather[0].main}</h4>
+                    <h4>{data.weather[0].description}</h4>
+                    <div className="btnDiv">
+                      <h4 className="fahrenheit" id="fahrenheit">{fahrenheit} F°</h4>
+                      <h4 className="celsius" id="celsius">{data.main.temp} C°</h4>
                     </div>
                     
+                    <h4>Cloud: {data.clouds.all} %</h4>
+                    <h4>Pressure: {data.main.pressure} mb</h4>
+                  </div> 
                 </div>
-                
+                <div className="buttons">
+                  <div className="buttonsContainer">
+                    <button onClick={() => convertFahrenheit()}>Convertir F°</button>
+                    <button onClick={() => convertCelsius()}>Convertir C°</button>
+                  </div> 
+                </div>
               </div>  
       ) : ('')}
         </div>
